@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minority — Vous êtes la minorité. Ou pas.</title>
+    <meta name="description"
+        content="Minority : un joueur pose la question, tous mentent. Devinez qui a|Giurado la réponse.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+</head>
+
+<body>
+    <nav class="site-nav">
+        <a class="brand" href="index.html">
+            <img src="assets/logo/monority-logo-dark.png" alt="Minority">
+            <h1>MIN<span>O</span>RITY</h1>
+        </a>
+        <div class="liens">
+            <a href="pages/login.html">Jouer</a>
+            <a href="#regles">Règles</a>
+            <a href="#modes">Jeux</a>
+            <a href="#apropos">À propos</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <h2 class="hero__title">Vous êtes la minorité.<br><span>Ou pas.</span></h2>
+            <p class="hero__sub">Un joueur pose la question. Tous les autres répondent. Le piège&nbsp;?
+                Un seul vote blanc vous récompense. Deux vous coûtent cher.</p>
+            <div class="hero__cta">
+                <a class="btn btn--primary" href="pages/login.html">Jouer</a>
+                <a class="btn btn--ghost" href="#regles">Voir les règles</a>
+            </div>
+            <ul class="hero__stats">
+                <li><strong>3</strong><span>à 12 joueurs</span></li>
+                <li><strong>15 s</strong><span>pour poser la question</span></li>
+                <li><strong>+3</strong><span>à la minorité</span></li>
+            </ul>
+        </section>
+
+        <section class="steps" id="regles">
+            <h2 class="section-title">Comment ça marche</h2>
+            <ol class="steps__grid">
+                <li class="step">
+                    <span class="step__num">01</span>
+                    <h3>Un joueur crée la partie</h3>
+                    <p>Il fixes les scores, les timers, puis les autres rejoignent avec le code du salon.</p>
+                </li>
+                <li class="step">
+                    <span class="step__num">02</span>
+                    <h3>Une question, un timer</h3>
+                    <p>Le joueur du tour a 15&nbsp;s pour poser sa question à tout le monde.</p>
+                </li>
+                <li class="step">
+                    <span class="step__num">03</span>
+                    <h3>OUI, NON ou BLANC</h3>
+                    <p>Tout le monde répond en 10&nbsp;s. Le joueur du tour ne vote pas.</p>
+                </li>
+                <li class="step">
+                    <span class="step__num">04</span>
+                    <h3>La minorité gagne</h3>
+                    <p>Révélation après 5&nbsp;s. Seuls les joueurs de la minorité gagnent des points.
+                        Premier à 20&nbsp;pts, c'est gagné.</p>
+                </li>
+            </ol>
+        </section>
+
+        <section class="split">
+            <div class="panel">
+                <h3>Votre vote</h3>
+                <p>Trois réponses possibles. Aucune n'est sûre.</p>
+                <div class="votes">
+                    <span class="vote vote--yes">OUI</span>
+                    <span class="vote vote--no">NON</span>
+                    <span class="vote vote--blank">BLANC</span>
+                </div>
+            </div>
+            <div class="panel panel--trap">
+                <h3>Le piège du vote blanc</h3>
+                <p>Le blanc est un pari, pas un aveu.</p>
+                <ul class="trap">
+                    <li><span class="trap__badge trap__badge--good">+3</span> Vous êtes le <strong>seul</strong> blanc &rarr;
+                        vous gagnez les points.</li>
+                    <li><span class="trap__badge trap__badge--bad">−3</span> <strong>Un seul autre</strong> joueur a aussi voté blanc
+                        &rarr; vous perdez les points.</li>
+                </ul>
+                <p class="panel__foot">Les joueurs du groupe majoritaire ne gagnent rien.</p>
+            </div>
+        </section>
+
+        <section class="modes" id="modes">
+            <h2 class="section-title">Choisir son mode</h2>
+            <div class="modes__grid">
+                <article class="mode">
+                    <h3>Standard</h3>
+                    <p>15 s / 10 s / 5 s · +3 points · 20 pour gagner</p>
+                </article>
+                <article class="mode">
+                    <h3>Express</h3>
+                    <p>8 s / 5 s / 3 s · +2 points · 12 pour gagner</p>
+                </article>
+                <article class="mode">
+                    <h3>Longue partie</h3>
+                    <p>25 s / 15 s / 8 s · +1 point · 50 pour gagner</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="about" id="apropos">
+            <h2 class="section-title">À propos</h2>
+            <p>Minority est un jeu de bluff et de déduction pour 3 à 12 joueurs. Le premier crée la partie
+                et règle les règles, les autres rejoignent avec un code à 4 caractères depuis n'importe quel
+                appareil. Tout est stocké côté serveur&nbsp;: scores, manches et historique.</p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>MIN<span class="accent">O</span>RITY — jeu de minorité</p>
+        <p class="site-footer__tech">Node.js + SQLite · sans compte, sans installation</p>
+        <nav class="site-footer__links">
+            <a href="pages/login.html">Créer une partie</a>
+            <a href="#regles">Règles</a>
+            <a href="#apropos">À propos</a>
+        </nav>
+    </footer>
+
+    <script src="js/home.js"></script>
+</body>
+
+</html>

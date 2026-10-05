@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion — Minority</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+</head>
+
+<body>
+    <main class="auth">
+        <section class="welcome-card">
+            <img src="../assets/logo/monority-logo-dark.png" alt="Minority">
+            <div class="text">
+                <h1>MIN<span>O</span>RITY</h1>
+                <p>Bienvenue sur <strong>Minority</strong>, le jeu parfait pour s'amuser en famille ou entre
+                    amis.<br>Vous êtes prévenu&nbsp;: c'est un jeu de bluff, un peu addictif et assez vicieux.</p>
+                <form id="authForm">
+                    <label for="pseudo">Votre pseudo</label>
+                    <input type="text" id="pseudo" name="pseudo" maxlength="16" required
+                        autocomplete="nickname" placeholder="ex.&nbsp;: Minority">
+                    <button type="submit">Commencer</button>
+                </form>
+                <p class="auth__error" id="error" hidden></p>
+            </div>
+        </section>
+
+        <section class="auth__join">
+            <h2>Rejoindre une partie</h2>
+            <p>Entre le code à 4 caractères donné par le maître de jeu.</p>
+            <form id="joinForm">
+                <input type="text" id="code" maxlength="4" placeholder="CODE" autocomplete="off"
+                    spellcheck="false">
+                <button type="submit">Rejoindre</button>
+            </form>
+            <p class="auth__error" id="joinError" hidden></p>
+        </section>
+    </main>
+
+    <script type="module" src="../js/auth.js"></script>
+</body>
+
+</html>

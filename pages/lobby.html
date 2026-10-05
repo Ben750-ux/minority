@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salon — Minority</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/lobby.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+</head>
+
+<body>
+    <nav class="site-nav">
+        <a class="brand" href="../index.html">
+            <img src="../assets/logo/monority-logo-dark.png" alt="Minority">
+            <h1>MIN<span>O</span>RITY</h1>
+        </a>
+        <div class="liens">
+            <a href="#" id="leaveLink">Quitter</a>
+        </div>
+    </nav>
+
+    <main class="lobby">
+        <h2 class="section-title" id="lobbyTitle">Salon</h2>
+
+        <section class="card card--code">
+            <p class="room__label">Code du salon</p>
+            <p class="room__code" id="roomCode">----</p>
+            <button type="button" class="btn btn--ghost btn--small" id="copyCode">Copier le code</button>
+            <p class="hint">Les autres ouvrent le jeu, entrent leur pseudo puis saisissent ce code.</p>
+        </section>
+
+        <section class="card">
+            <h3>Joueurs <span id="playerCount" class="count">0/12</span></h3>
+            <ul class="roster" id="roster"></ul>
+            <p class="hint">Minimum 3 joueurs. Le maître de jeu ne vote pas pendant son tour de question.</p>
+        </section>
+
+        <section class="card" id="configCard">
+            <h3>Préréglages</h3>
+            <div class="presets" id="presets"></div>
+        </section>
+
+        <section class="card" id="configCard2">
+            <h3>Timers</h3>
+            <div class="fields">
+                <label>
+                    <span>Question</span>
+                    <input type="number" id="tQuestion" min="5" max="60" value="15">
+                    <small>Secondes pour poser la question</small>
+                </label>
+                <label>
+                    <span>Vote</span>
+                    <input type="number" id="tVote" min="3" max="60" value="10">
+                    <small>Secondes pour répondre</small>
+                </label>
+                <label>
+                    <span>Révélation</span>
+                    <input type="number" id="tReveal" min="2" max="30" value="5">
+                    <small>Secondes avant le résultat</small>
+                </label>
+            </div>
+        </section>
+
+        <section class="card" id="configCard3">
+            <h3>Points</h3>
+            <div class="fields">
+                <label>
+                    <span>Minorité (par joueur)</span>
+                    <input type="number" id="pMinority" min="0" max="20" value="3">
+                    <small>Reçu par les joueurs minoritaires</small>
+                </label>
+                <label>
+                    <span>Blanc unique</span>
+                    <input type="number" id="pBlankSolo" min="0" max="20" value="3">
+                    <small>Seul joueur à avoir voté blanc</small>
+                </label>
+                <label>
+                    <span>Blanc multiple</span>
+                    <input type="number" id="pBlankMulti" min="0" max="20" value="3">
+                    <small>Malus si plusieurs blancs</small>
+                </label>
+                <label>
+                    <span>Objectif</span>
+                    <input type="number" id="pTarget" min="3" max="200" value="20">
+                    <small>Score pour gagner</small>
+                </label>
+            </div>
+            <p class="hint">Mets une valeur à <strong>0</strong> si la règle ne compte pas pour toi.</p>
+        </section>
+
+        <div class="lobby__actions">
+            <button type="button" class="btn btn--primary" id="start" disabled>Lancer la partie</button>
+            <p class="auth__error" id="error" hidden></p>
+        </div>
+    </main>
+
+    <script type="module" src="../js/lobby.js"></script>
+</body>
+
+</html>

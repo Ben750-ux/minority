@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: minority
+    runtime: node
+    plan: free
+    buildCommand: npm install --omit=dev
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 24.14.1
+      - key: NODE_ENV
+        value: production
+    # Plan gratuit : Render efface le disque systeme a chaque deploiement,
+    # donc data/minority.db est recreee vierge. Les parties en cours sont
+    # perdues au redemarrage, les salons sont recrees a la demande.
+    # Pour conserver l'historique, passe le plan payant et ajoute :
+    #   disk:
+    #     name: minority-data
+    #     mountPath: /var/data
+    #     sizeGB: 1
+    # puis definis DATA_DIR=/var/data dans les variables d'environnement.

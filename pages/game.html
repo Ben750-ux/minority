@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partie — Minority</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/game.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+</head>
+
+<body class="game-body">
+    <header class="game-bar">
+        <div class="game-bar__round">
+            <span class="game-bar__label">Manche</span>
+            <strong id="roundNumber">1</strong>
+        </div>
+        <div class="game-bar__timer" id="timerBox">
+            <span class="game-bar__label" id="phaseLabel">Au joueur de poser la question</span>
+            <strong id="timer">15</strong>
+        </div>
+        <div class="game-bar__scores" id="scoreboard"></div>
+    </header>
+
+    <main class="stage">
+        <section class="asker" id="askerView">
+            <p class="asker__who">Au tour de <strong id="askerName">—</strong></p>
+            <h2 class="asker__title">Pose ta question</h2>
+            <input type="text" id="questionInput" placeholder="As-tu déjà… ?" maxlength="90" autocomplete="off">
+            <button type="button" class="btn btn--primary" id="questionSubmit">Lancer le vote</button>
+            <p class="asker__hint">Personne ne voit ton écran quand les autres répondent.</p>
+        </section>
+
+        <section class="waiting" id="waitingView" hidden>
+            <h2 class="waiting__title">Patientez…</h2>
+            <p class="waiting__text" id="waitingHint">Le joueur du tour prépare sa question.</p>
+        </section>
+
+        <section class="ballot" id="ballotView" hidden>
+            <blockquote class="ballot__question" id="ballotQuestion">—</blockquote>
+            <p class="ballot__sub">Choisis une réponse. Tu ne peux voir les autres qu'à la révélation.</p>
+            <div class="ballot__options">
+                <button type="button" class="ballot__btn ballot__btn--yes" data-vote="yes">OUI</button>
+                <button type="button" class="ballot__btn ballot__btn--no" data-vote="no">NON</button>
+                <button type="button" class="ballot__btn ballot__btn--blank" data-vote="blank">BLANC</button>
+            </div>
+        </section>
+
+        <section class="reveal" id="revealView" hidden>
+            <blockquote class="reveal__question" id="revealQuestion">—</blockquote>
+            <ul class="reveal__groups" id="revealGroups"></ul>
+            <div class="reveal__deltas" id="revealDeltas"></div>
+        </section>
+
+        <section class="winner" id="winnerView" hidden>
+            <p class="winner__eyebrow">Partie terminée</p>
+            <h2 class="winner__name" id="winnerName">—</h2>
+            <ul class="winner__podium" id="podium"></ul>
+            <div class="winner__actions">
+                <button type="button" class="btn btn--primary" id="rematch">Rejouer</button>
+                <a class="btn btn--ghost" href="lobby.html">Nouveau salon</a>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast" id="error" hidden></div>
+
+    <script type="module" src="../js/game.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,182 @@
+.lobby {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2rem var(--pad) 5rem;
+}
+
+.lobby__intro {
+    margin: -.5rem 0 2.5rem;
+    text-align: center;
+    color: var(--muted);
+}
+
+.card {
+    padding: 1.6rem;
+    margin-bottom: 1.1rem;
+    background: var(--surface);
+    border: 1px solid rgba(255, 255, 255, .06);
+    border-radius: var(--radius);
+}
+
+.card h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    margin-bottom: 1.1rem;
+}
+
+.presets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: .7rem;
+}
+
+.preset {
+    padding: .9rem .6rem;
+    background: var(--surface-2);
+    border: 2px solid transparent;
+    border-radius: .8rem;
+    color: var(--text);
+    font-family: var(--font-display);
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+}
+
+.preset:hover {
+    border-color: rgba(242, 182, 50, .45);
+}
+
+.preset[aria-pressed='true'] {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+}
+
+.preset span {
+    display: block;
+    font-family: var(--font-body);
+    font-size: .8rem;
+    color: var(--muted);
+    margin-top: .2rem;
+}
+
+.fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 1.1rem;
+}
+
+.fields label {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+}
+
+.fields label>span {
+    font-size: .9rem;
+    font-weight: 500;
+}
+
+.fields input {
+    padding: .6rem .8rem;
+    background: rgba(0, 0, 0, .25);
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: .6rem;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+}
+
+.fields input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.fields small {
+    font-size: .78rem;
+    color: var(--muted);
+    line-height: 1.35;
+}
+
+.roster {
+    display: grid;
+    gap: .6rem;
+    margin-bottom: 1rem;
+}
+
+.roster__row {
+    display: flex;
+    gap: .6rem;
+    align-items: center;
+}
+
+.roster__row input[type='text'] {
+    flex: 1;
+    padding: .6rem .8rem;
+    background: rgba(0, 0, 0, .25);
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: .6rem;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+}
+
+.roster__row .host-tag {
+    padding: .2rem .6rem;
+    background: var(--accent-dim);
+    border-radius: 2rem;
+    color: var(--accent);
+    font-size: .75rem;
+    font-weight: 600;
+}
+
+.roster__row button {
+    flex: 0 0 2.3rem;
+    height: 2.3rem;
+    background: rgba(255, 107, 107, .16);
+    border: none;
+    border-radius: .6rem;
+    color: var(--bad);
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.roster__row button:hover {
+    background: rgba(255, 107, 107, .3);
+}
+
+.hint {
+    margin-top: .9rem;
+    font-size: .82rem;
+    color: var(--muted);
+}
+
+.room {
+    padding: 1.4rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    background: var(--accent-dim);
+    border: 1px dashed rgba(242, 182, 50, .5);
+    border-radius: var(--radius);
+}
+
+.room__label {
+    font-size: .8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+}
+
+.room__code {
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    letter-spacing: .3em;
+    color: var(--accent);
+    margin: .3rem 0 .8rem;
+}
+
+.lobby__actions {
+    text-align: center;
+}
+
+.lobby__actions .btn {
+    min-width: 12rem;
+}
