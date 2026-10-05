@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salle d'attente — Minority</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/waiting.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+</head>
+
+<body class="wait-body">
+    <main class="wait">
+
+        <header class="wait__head">
+            <p class="wait__eyebrow">Salon <span class="wait__code" id="code">----</span></p>
+            <h1 class="wait__title">En attente du maître de jeu</h1>
+            <p class="wait__sub">Il règle la partie et lance quand tout le monde est là.</p>
+        </header>
+
+        <section class="wait__card">
+            <div class="wait__count">
+                <strong id="count">0</strong>
+                <span id="countLabel">joueur connecté</span>
+            </div>
+
+            <ul class="wait__list" id="players"></ul>
+
+            <p class="wait__hint" id="hint">Partage le code ci-dessus avec tes amis.</p>
+        </section>
+
+        <p class="wait__error" id="error" hidden></p>
+
+        <footer class="wait__foot">
+            <button type="button" class="btn btn--ghost btn--small" id="copy">Copier le code</button>
+            <button type="button" class="btn btn--ghost btn--small" id="leave">Quitter le salon</button>
+        </footer>
+    </main>
+
+    <script type="module" src="../js/waiting.js"></script>
+</body>
+
+</html>

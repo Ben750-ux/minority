@@ -4,41 +4,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion — Minority</title>
+    <title>Minority — Choisis ton pseudo</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
 </head>
 
-<body>
-    <main class="auth">
-        <section class="welcome-card">
-            <img src="../assets/logo/monority-logo-dark.png" alt="Minority">
-            <div class="text">
-                <h1>MIN<span>O</span>RITY</h1>
-                <p>Bienvenue sur <strong>Minority</strong>, le jeu parfait pour s'amuser en famille ou entre
-                    amis.<br>Vous êtes prévenu&nbsp;: c'est un jeu de bluff, un peu addictif et assez vicieux.</p>
-                <form id="authForm">
-                    <label for="pseudo">Votre pseudo</label>
-                    <input type="text" id="pseudo" name="pseudo" maxlength="16" required
-                        autocomplete="nickname" placeholder="ex.&nbsp;: Minority">
-                    <button type="submit">Commencer</button>
-                </form>
-                <p class="auth__error" id="error" hidden></p>
-            </div>
+<body class="auth-body">
+    <main class="gate">
+
+        <header class="gate__head">
+            <img class="gate__logo" src="../assets/logo/monority-logo-dark.png" alt="">
+            <h1 class="gate__title">MIN<span>O</span>RITY</h1>
+            <p class="gate__tagline">Un joueur pose la question. Tous les autres mentent.</p>
+        </header>
+
+        <ol class="steps-nav" id="stepsNav">
+            <li class="steps-nav__item is-current" data-step="1">
+                <span class="steps-nav__num">1</span> Pseudo
+            </li>
+            <li class="steps-nav__item" data-step="2">
+                <span class="steps-nav__num">2</span> Partie
+            </li>
+        </ol>
+
+        <section class="gate__card" id="stepPseudo">
+            <h2 class="gate__question">Comment tu t'appelles&nbsp;?</h2>
+            <p class="gate__hint">Ce pseudo sera visible par tous les joueurs de la partie.</p>
+
+            <form id="pseudoForm" novalidate>
+                <input type="text" id="pseudo" name="pseudo" maxlength="16" autocomplete="off"
+                    spellcheck="false" placeholder="Ton pseudo" aria-describedby="pseudoError">
+                <p class="field__error" id="pseudoError" role="alert" hidden></p>
+                <div class="gate__actions">
+                    <button type="submit" class="btn btn--primary btn--full">Continuer</button>
+                </div>
+            </form>
         </section>
 
-        <section class="auth__join">
-            <h2>Rejoindre une partie</h2>
-            <p>Entre le code à 4 caractères donné par le maître de jeu.</p>
-            <form id="joinForm">
-                <input type="text" id="code" maxlength="4" placeholder="CODE" autocomplete="off"
-                    spellcheck="false">
-                <button type="submit">Rejoindre</button>
+        <section class="gate__card" id="stepChoice" hidden>
+            <div class="chosen">
+                <span class="chosen__label">Tu joues sous le pseudo</span>
+                <strong class="chosen__name" id="chosenName">—</strong>
+                <button type="button" class="chosen__edit" id="changeName">modifier</button>
+            </div>
+
+            <button type="button" class="choice" id="createRoom">
+                <span class="choice__title">Créer une partie</span>
+                <span class="choice__desc">Tu seras le maître de jeu&nbsp;: tu règles les timers
+                    et les points.</span>
+            </button>
+
+            <div class="divider"><span>ou</span></div>
+
+            <form class="join" id="joinForm" novalidate>
+                <label class="join__label" for="code">Rejoindre avec un code</label>
+                <div class="join__row">
+                    <input type="text" id="code" class="join__input" maxlength="4" autocomplete="off"
+                        spellcheck="false" placeholder="CODE" aria-describedby="joinError">
+                    <button type="submit" class="btn btn--primary">Rejoindre</button>
+                </div>
+                <p class="field__error" id="joinError" role="alert" hidden></p>
             </form>
-            <p class="auth__error" id="joinError" hidden></p>
         </section>
+
+        <p class="gate__note">3 joueurs minimum · 12 maximum</p>
     </main>
 
     <script type="module" src="../js/auth.js"></script>

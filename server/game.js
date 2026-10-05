@@ -276,14 +276,16 @@ export function submitQuestion(roomCode, player, text) {
     clearTimers(roomCode);
     store.setQuestion(roomCode, question || null);
 
+    const round = store.currentRound(roomCode);
+
     if (!question) {
-        const round = store.currentRound(roomCode);
-        store.saveQuestion(round.id, '(question vide)');
+        // Le questionneur n'a rien dit : la manche est annulée, personne ne marque.
+        store.saveQuestion(round.id, null);
         skipRound(roomCode);
         return;
     }
 
-    store.saveQuestion(store.currentRound(roomCode).id, question);
+    store.saveQuestion(round.id, question);
     startVoting(roomCode);
 }
 

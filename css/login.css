@@ -1,168 +1,292 @@
-/* ---------- LOGIN / AUTH ---------- */
+/* ---------- PAGE PSEUDO / CHOIX DU SALON ---------- */
 
-.auth {
+.auth-body {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    gap: 2rem;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 3rem var(--pad) 5rem;
-    align-items: center;
+    place-items: center;
+    padding: 2rem var(--pad);
 }
 
-.welcome-card {
+.gate {
+    width: min(30rem, 100%);
     display: flex;
-    gap: 2rem;
-    align-items: center;
+    flex-direction: column;
+    gap: 1.6rem;
 }
 
-.welcome-card img {
-    width: 9rem;
-    height: 11rem;
-    object-fit: contain;
-    flex: 0 0 9rem;
-}
-
-.welcome-card .text h1 {
-    font-family: var(--font-display);
-    font-size: 2.2rem;
-}
-
-.welcome-card .text h1 span {
-    color: var(--accent);
-}
-
-.welcome-card .text p {
-    margin: .6rem 0 1.2rem;
-    color: var(--muted);
-    font-size: .95rem;
-    line-height: 1.5;
-}
-
-.welcome-card form {
-    display: flex;
-    gap: .5rem;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.welcome-card label {
-    width: 100%;
-    font-size: .9rem;
-    color: var(--muted);
-}
-
-.welcome-card input {
-    flex: 1 1 9rem;
-    min-width: 9rem;
-    padding: .7rem .9rem;
-    background: rgba(255, 255, 255, .1);
-    border: 1px solid rgba(255, 255, 255, .18);
-    border-radius: .6rem;
-    color: var(--text);
-    font-family: var(--font-body);
-    font-size: 1rem;
-}
-
-.welcome-card input::placeholder {
-    color: rgba(255, 255, 255, .35);
-}
-
-.welcome-card input:focus {
-    outline: none;
-    border-color: var(--accent);
-}
-
-.welcome-card button,
-.auth__join button {
-    padding: .75rem 1.8rem;
-    background: var(--accent);
-    color: #162b47;
-    border: none;
-    border-radius: 2rem;
-    font-family: var(--font-body);
-    font-size: .98rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform .15s, opacity .2s;
-}
-
-.welcome-card button:hover,
-.auth__join button:hover {
-    transform: translateY(-2px);
-}
-
-.welcome-card button:disabled,
-.auth__join button:disabled {
-    opacity: .55;
-    cursor: default;
-    transform: none;
-}
-
-.auth__join {
-    padding: 2rem;
-    background: var(--surface);
-    border: 1px solid rgba(255, 255, 255, .06);
-    border-radius: var(--radius);
+.gate__head {
     text-align: center;
 }
 
-.auth__join h2 {
+.gate__logo {
+    width: 6.5rem;
+    height: auto;
+    margin: 0 auto 1rem;
+}
+
+.gate__title {
     font-family: var(--font-display);
-    font-size: 1.5rem;
+    font-size: 2.6rem;
+    letter-spacing: .05em;
+    line-height: 1.1;
 }
 
-.auth__join p {
-    margin: .4rem 0 1.4rem;
+.gate__title span {
+    color: var(--accent);
+}
+
+.gate__tagline {
+    margin-top: .4rem;
     color: var(--muted);
-    font-size: .92rem;
+    font-size: .95rem;
 }
 
-.auth__join form {
+.steps-nav {
     display: flex;
-    gap: .5rem;
     justify-content: center;
+    gap: .5rem;
+    font-size: .85rem;
+    color: var(--muted);
 }
 
-.auth__join input {
-    width: 9rem;
-    padding: .7rem .9rem;
-    background: rgba(0, 0, 0, .25);
-    border: 1px solid rgba(255, 255, 255, .18);
-    border-radius: .6rem;
+.steps-nav__item {
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .35rem .9rem;
+    border-radius: 2rem;
+    background: rgba(255, 255, 255, .05);
+}
+
+.steps-nav__num {
+    display: grid;
+    place-items: center;
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .14);
+    font-size: .78rem;
+    font-weight: 600;
+}
+
+.steps-nav__item.is-current {
+    color: var(--accent);
+    background: var(--accent-dim);
+}
+
+.steps-nav__item.is-current .steps-nav__num {
+    background: var(--accent);
+    color: #162b47;
+}
+
+.gate__card {
+    padding: 2rem;
+    background: var(--surface);
+    border: 1px solid rgba(255, 255, 255, .07);
+    border-radius: var(--radius);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .25);
+}
+
+.gate__card[hidden] {
+    display: none;
+}
+
+.gate__question {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    text-align: center;
+}
+
+.gate__hint {
+    margin: .5rem 0 1.8rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: .9rem;
+}
+
+#pseudo {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    background: rgba(0, 0, 0, .28);
+    border: 2px solid rgba(255, 255, 255, .14);
+    border-radius: .8rem;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    text-align: center;
+    transition: border-color .2s, background .2s;
+}
+
+#pseudo::placeholder {
+    color: rgba(255, 255, 255, .3);
+}
+
+#pseudo:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(0, 0, 0, .4);
+}
+
+#pseudo.is-invalid {
+    border-color: var(--bad);
+}
+
+.gate__actions {
+    margin-top: 1.2rem;
+}
+
+.btn--full {
+    width: 100%;
+    text-align: center;
+}
+
+.field__error {
+    margin-top: .6rem;
+    color: var(--bad);
+    font-size: .88rem;
+    text-align: center;
+}
+
+.field__error[hidden] {
+    display: none;
+}
+
+/* ---------- Étape 2 ---------- */
+
+.chosen {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: .5rem;
+    flex-wrap: wrap;
+    padding: .9rem 1rem;
+    margin-bottom: 1.4rem;
+    background: var(--accent-dim);
+    border-radius: .8rem;
+}
+
+.chosen__label {
+    color: var(--muted);
+    font-size: .85rem;
+}
+
+.chosen__name {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--accent);
+}
+
+.chosen__edit {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: .82rem;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.chosen__edit:hover {
+    color: var(--text);
+}
+
+.choice {
+    display: block;
+    width: 100%;
+    padding: 1.3rem 1.4rem;
+    background: rgba(255, 255, 255, .05);
+    border: 2px solid rgba(255, 255, 255, .1);
+    border-radius: var(--radius);
+    color: var(--text);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color .2s, background .2s, transform .12s;
+}
+
+.choice:hover {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+    transform: translateY(-2px);
+}
+
+.choice__title {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--accent);
+}
+
+.choice__desc {
+    display: block;
+    margin-top: .25rem;
+    color: var(--muted);
+    font-size: .88rem;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.4rem 0;
+    color: var(--muted);
+    font-size: .82rem;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, .12);
+}
+
+.join__label {
+    display: block;
+    margin-bottom: .6rem;
+    color: var(--muted);
+    font-size: .88rem;
+    text-align: center;
+}
+
+.join__row {
+    display: flex;
+    gap: .6rem;
+}
+
+.join__input {
+    flex: 1;
+    min-width: 0;
+    padding: .85rem 1rem;
+    background: rgba(0, 0, 0, .28);
+    border: 2px solid rgba(255, 255, 255, .14);
+    border-radius: .8rem;
     color: var(--text);
     font-family: var(--font-display);
-    font-size: 1.2rem;
-    letter-spacing: .2em;
+    font-size: 1.4rem;
+    letter-spacing: .3em;
+    text-align: center;
     text-transform: uppercase;
 }
 
-.auth__join input:focus {
+.join__input::placeholder {
+    color: rgba(255, 255, 255, .25);
+    letter-spacing: .2em;
+}
+
+.join__input:focus {
     outline: none;
     border-color: var(--accent);
 }
 
-.auth__error {
-    margin-top: 1rem;
-    color: var(--bad);
-    font-size: .92rem;
+.join__input.is-invalid {
+    border-color: var(--bad);
 }
 
-.auth__error[hidden] {
-    display: none;
+.join__row .btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
 }
 
-@media (max-width: 860px) {
-    .welcome-card {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .welcome-card form {
-        justify-content: center;
-    }
-
-    .welcome-card label {
-        text-align: center;
-    }
+.gate__note {
+    text-align: center;
+    color: rgba(255, 255, 255, .35);
+    font-size: .82rem;
 }

@@ -148,6 +148,19 @@ async function main() {
     const askerVote = await call(askerToken, 'POST', `/api/rooms/${code}/vote`, { answer: 'yes' });
     check('questionneur ne peut pas voter -> 403', askerVote.status === 403, `recu ${askerVote.status}`);
 
+    // 10b. le maitre de jeu, quant a lui, vote des que ce n'est pas son tour
+    const hostIsAsker = askerId === host.data.player.id;
+    if (!hostIsAsker) {
+        const hostVote = await call(host.data.token, 'POST', `/api/rooms/${code}/vote`, { answer: 'no' });
+        check('maitre de jeu peut voter quand ce n est pas son tour',
+            hostVote.status === 200, `recu ${hostVote.status} ${hostVote.data.error ?? ''}`);
+        const counted = (await call(host.data.token, 'GET', `/api/rooms/${code}`)).data.room.votes;
+        check('son vote est bien compte', counted >= 1, `votes=${counted}`);
+        await call(host.data.token, 'POST', `/api/rooms/${code}/vote`, { answer: 'yes' });
+    } else {
+        check('maitre de jeu est questionneur sur la manche 1 (il ne peut pas voter)', true);
+    }
+
     const badVote = await call(voterA, 'POST', `/api/rooms/${code}/vote`, { answer: 'maybe' });
     check('vote invalide -> 400', badVote.status === 400, `recu ${badVote.status}`);
 
@@ -226,21 +239,65 @@ async function main() {
     const total = scores.reduce((sum, p) => sum + p.score, 0);
     check('scores cumules en base', total > 0, `total=${total} detail=${JSON.stringify(scores.map((s) => [s.name, s.score]))}`);
 
+    // 13b. sur une manche ou le maitre de jeu n'est pas questionneur,
+    // il doit recevoir un ecran de vote comme tout le monde
+    const round3probe = (await call(host.data.token, 'GET', `/api/rooms/${code}`)).data.room;
+    if (round3probe.phase === 'question' && round3probe.askerId !== host.data.player.id) {
+        const tokA = tokenOf(round3probe.askerId);
+        const others = [host, bob, cleo].map((p) => p.data.player.id)
+            .filter((id) => id !== round3probe.askerId).map(tokenOf);
+        await call(tokA, 'POST', `/api/rooms/${code}/question`, { text: 'Question du invite ?' });
+        const hostBallot = await call(host.data.token, 'POST', `/api/rooms/${code}/vote`, { answer: 'blank' });
+        check('maitre de jeu recoit le droit de vote sur une manche invitee',
+            hostBallot.status === 200, `recu ${hostBallot.status}`);
+        for (const token of others) {
+            await call(token, 'POST', `/api/rooms/${code}/vote`, { answer: 'yes' });
+        }
+        await sleep(300);
+    } else {
+        check('maitre de jeu a joue une manche invitee', false,
+            `phase=${round3probe.phase} asker=${round3probe.askerId}`);
+    }
+
     // 14. victoire
     await call(host.data.token, 'POST', `/api/rooms/${code}/config`, {
         tQuestion: 5, tVote: 30, tReveal: 2, pMinority: 5, pBlankSolo: 0, pBlankMulti: 0, pTarget: 5
     });
     await sleep(300);
-    const r3 = (await call(host.data.token, 'GET', `/api/rooms/${code}`)).data.room;
-    if (r3.phase === 'question') {
-        const tok3 = tokenOf(r3.askerId);
-        const vt3 = [host, bob, cleo].map((p) => p.data.player.id).filter((id) => id !== r3.askerId).map(tokenOf);
-        await call(tok3, 'POST', `/api/rooms/${code}/question`, { text: 'Derniere ?' });
+    // On joue jusqu'a victoire : chaque manche donne 5 points au minoritaire,
+    // l'objectif de 5 peut donc demander plusieurs tours selon les scores cumuleses.
+    let rounds4 = 0;
+    let state4 = (await call(host.data.token, 'GET', `/api/rooms/${code}`)).data.room;
+
+    while (state4.status === 'playing' && rounds4 < 8) {
+        rounds4 += 1;
+
+        if (state4.phase === 'reveal') {
+            await sleep(2400);
+            state4 = (await call(host.data.token, 'GET', `/api/rooms/${code}`)).data.room;
+            continue;
+        }
+
+        if (state4.phase !== 'question') {
+            await sleep(500);
+            state4 = (await call(host.data.token, 'GET', `/api/rooms/${code}`)).data.room;
+            continue;
+        }
+
+        const tok3 = tokenOf(state4.askerId);
+        const vt3 = [host, bob, cleo].map((p) => p.data.player.id)
+            .filter((id) => id !== state4.askerId).map(tokenOf);
+
+        await call(tok3, 'POST', `/api/rooms/${code}/question`, { text: `Manche decisive ${rounds4}` });
         await call(vt3[0], 'POST', `/api/rooms/${code}/vote`, { answer: 'yes' });
         await call(vt3[1], 'POST', `/api/rooms/${code}/vote`, { answer: 'no' });
         await call(vt3[2], 'POST', `/api/rooms/${code}/vote`, { answer: 'no' });
-        await sleep(2700);
+        await sleep(2800);
+
+        state4 = (await call(host.data.token, 'GET', `/api/rooms/${code}`)).data.room;
     }
+
+    check('la boucle de manches se termine', rounds4 < 8, `${rounds4} manches jouees`);
 
     const over = (await call(host.data.token, 'GET', `/api/rooms/${code}`)).data.room;
     check('partie terminee et gagnant designe', over.status === 'over' && Boolean(over.winnerId),

@@ -1,0 +1,219 @@
+/* ---------- SALLE D'ATTENTE ---------- */
+
+.wait-body {
+    display: grid;
+    place-items: center;
+    padding: 2rem var(--pad);
+}
+
+.wait {
+    width: min(30rem, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.wait__head {
+    text-align: center;
+}
+
+.wait__eyebrow {
+    font-size: .82rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.wait__code {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    letter-spacing: .25em;
+    color: var(--accent);
+}
+
+.wait__title {
+    margin-top: .5rem;
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+}
+
+.wait__sub {
+    margin-top: .3rem;
+    color: var(--muted);
+    font-size: .92rem;
+}
+
+.wait__card {
+    padding: 1.8rem;
+    background: var(--surface);
+    border: 1px solid rgba(255, 255, 255, .07);
+    border-radius: var(--radius);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .25);
+}
+
+.wait__count {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: .4rem;
+    padding-bottom: 1.2rem;
+    margin-bottom: 1.2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.wait__count strong {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    color: var(--accent);
+    line-height: 1;
+}
+
+.wait__count span {
+    color: var(--muted);
+    font-size: .9rem;
+}
+
+.wait__list {
+    display: grid;
+    gap: .55rem;
+    min-height: 3rem;
+}
+
+.wait__player {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    padding: .75rem 1rem;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid transparent;
+    border-radius: .8rem;
+    animation: slide-in .3s ease-out;
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.wait__player--host {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+}
+
+.wait__player--self {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, .18) inset;
+}
+
+.wait__avatar {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    flex: 0 0 2rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .12);
+    font-family: var(--font-display);
+    font-size: .9rem;
+    text-transform: uppercase;
+}
+
+.wait__player--host .wait__avatar {
+    background: var(--accent);
+    color: #162b47;
+}
+
+.wait__name {
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.wait__tag {
+    margin-left: auto;
+    padding: .15rem .6rem;
+    border-radius: 2rem;
+    background: rgba(255, 255, 255, .12);
+    font-size: .72rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.wait__tag--host {
+    background: var(--accent);
+    color: #162b47;
+}
+
+.wait__tag--you {
+    background: rgba(255, 255, 255, .18);
+}
+
+.wait__waiting {
+    display: grid;
+    place-items: center;
+    gap: .5rem;
+    padding: 1.2rem 0;
+    color: var(--muted);
+    font-size: .9rem;
+}
+
+.wait__spinner {
+    width: 1.6rem;
+    height: 1.6rem;
+    border: 2px solid rgba(255, 255, 255, .18);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.wait__hint {
+    margin-top: 1.4rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255, 255, 255, .08);
+    color: var(--muted);
+    font-size: .85rem;
+    text-align: center;
+}
+
+.wait__hint--ready {
+    color: var(--good);
+    font-weight: 500;
+}
+
+.wait__error {
+    padding: .9rem 1.2rem;
+    background: rgba(255, 107, 107, .12);
+    border: 1px solid rgba(255, 107, 107, .35);
+    border-radius: .8rem;
+    color: var(--bad);
+    font-size: .9rem;
+    text-align: center;
+}
+
+.wait__error[hidden] {
+    display: none;
+}
+
+.wait__foot {
+    display: flex;
+    justify-content: center;
+    gap: .6rem;
+    flex-wrap: wrap;
+}
+
+.wait__foot .btn {
+    font-size: .88rem;
+}
