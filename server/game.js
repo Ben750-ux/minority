@@ -113,7 +113,7 @@ export function publicRoom(roomCode) {
             isAsker: m.id === room.asker_id
         })),
         votes: round ? store.votesOf(round.id).length : 0,
-        voterCount: members.filter((m) => m.id !== room.asker_id).length,
+        voterCount: members.length,
         reveal: revealed && round ? buildReveal(room, round) : null
     };
 }
@@ -121,7 +121,7 @@ export function publicRoom(roomCode) {
 function buildReveal(room, round) {
     const votes = store.votesOf(round.id);
     const members = store.roomPlayers(room.code);
-    const voterIds = new Set(members.filter((m) => m.id !== room.asker_id).map((m) => m.id));
+    const voterIds = new Set(members.map((m) => m.id));
 
     const groups = { yes: [], no: [], blank: [] };
     votes.forEach((v) => {
@@ -310,20 +310,24 @@ function startVoting(roomCode) {
 
 export function castVote(roomCode, player, answer) {
     const room = store.getRoom(roomCode);
+    const round = store.currentRound(roomCode);
+
     if (room.phase !== 'vote') {
+        // Re-vote du meme joueur alors que le scrutin vient de se clore :
+        // le vote est deja enregistre, on le confirme plutot que de renvoyer une erreur.
+        if (room.phase === 'reveal' && round && store.hasVoted(round.id, player.id)) {
+            return;
+        }
         throw httpError(409, 'le vote est ferme');
-    }
-    if (room.asker_id === player.id) {
-        throw httpError(403, 'le questionneur ne vote pas');
     }
     if (!['yes', 'no', 'blank'].includes(answer)) {
         throw httpError(400, 'vote invalide');
     }
 
-    store.castVote(store.currentRound(roomCode).id, player.id, answer);
-    const voterCount = store.roomPlayers(roomCode).filter((m) => m.id !== room.asker_id).length;
+    // Tout le monde vote, y compris le questionneur et le maitre de jeu.
+    store.castVote(round.id, player.id, answer);
 
-    if (store.voteCount(store.currentRound(roomCode).id) >= voterCount) {
+    if (store.voteCount(round.id) >= store.roomMembersCount(roomCode)) {
         revealRound(roomCode);
     }
 }

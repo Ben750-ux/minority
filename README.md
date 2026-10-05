@@ -6,7 +6,7 @@ blanc isolé est une prime, deux blancs ou plus sont un malus.
 
 ## Règles
 
-- **Le questionneur ne vote pas.** Pendant son tour, il ne marque rien.
+- **Tout le monde vote, questionneur compris.** Le joueur du tour peut aussi répondre ; il ne marque simplement rien s'il est du groupe majoritaire.
 - **Minorité** : le plus petit groupe parmi *oui* et *non* (un groupe vide ne compte pas).
   Chaque membre gagne `pMinority` points. Les autres ne gagnent rien.
 - **Blanc unique** : si un seul joueur a voté blanc, il gagne `pBlankSolo`.

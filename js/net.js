@@ -45,7 +45,9 @@ export async function api(path, { method = 'GET', body, auth = true } = {}) {
             localStorage.removeItem(TOKEN_KEY);
             localStorage.removeItem(PLAYER_KEY);
         }
-        throw new Error(data.error || `erreur ${res.status}`);
+        // `status` permet a l'appelant de distinguer une erreur metier
+        // (409 vote clos, 403 mauvais joueur) d'une panne reseau.
+        throw Object.assign(new Error(data.error || `erreur ${res.status}`), { status: res.status });
     }
 
     return data;

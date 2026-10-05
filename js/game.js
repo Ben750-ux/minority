@@ -39,6 +39,7 @@ const el = {
 
 let room = null;
 let myVote = null;
+let voting = false;
 let tickId = null;
 
 function show(name) {
@@ -211,16 +212,12 @@ function render() {
 
     if (room.phase === 'vote') {
         el.ballotQuestion.textContent = room.question ?? '—';
-
-        if (room.askerId === me()?.id) {
-            show('waiting');
-            return;
-        }
-
         show('ballot');
+
         document.querySelectorAll('.ballot__btn').forEach((btn) => {
             btn.disabled = myVote !== null;
         });
+
         el.waiting.textContent = myVote
             ? `Vote envoyé : ${LABELS[myVote].toLowerCase()}. En attente des autres…`
             : `En attente des votes… ${room.votes}/${room.voterCount}`;
@@ -240,17 +237,31 @@ function render() {
 
 document.querySelectorAll('.ballot__btn').forEach((btn) => {
     btn.addEventListener('click', async () => {
-        if (myVote) {
+        // `voting` bloque les doubles clics : `myVote` est pose avant l'envoi,
+        // mais une deuxieme requete pouvait partir avant le retour du serveur.
+        if (myVote || voting) {
             return;
         }
         myVote = btn.dataset.vote;
+        voting = true;
 
         try {
             await api(`/api/rooms/${room.code}/vote`, { method: 'POST', body: { answer: myVote } });
         } catch (err) {
             myVote = null;
+
+            // 409 = le scrutin etait deja clos (temporateur ecoule, ou revelation
+            // declenchee par les autres). Ce n'est pas une panne : on attend.
+            if (err.status === 409) {
+                voting = false;
+                render();
+                return;
+            }
+
             showError(err.message);
         }
+
+        voting = false;
         render();
     });
 });

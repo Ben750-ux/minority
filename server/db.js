@@ -143,6 +143,7 @@ const q = {
     `),
     roundByNumber: db.prepare('SELECT * FROM rounds WHERE room_code = ? AND number = ?'),
     setRoundQuestion: db.prepare('UPDATE rounds SET question = ?, revealed = 1 WHERE id = ?'),
+    clearRounds: db.prepare('DELETE FROM rounds WHERE room_code = ?'),
 
     insertVote: db.prepare(
         'INSERT OR REPLACE INTO votes (round_id, player_id, answer, at) VALUES (?, ?, ?, ?)'
@@ -253,6 +254,10 @@ export function resetScores(code) {
 export function restartRoom(code) {
     q.setRound.run(0, code);
     q.setWinner.run(null, 'lobby', code);
+    // Les rounds repartent de 1 : on efface ceux de la partie precedente,
+    // sinon les votes de l'ancien round 1 sont encore en base et la
+    // revelation se declenche des le premier vote de la nouvelle partie.
+    q.clearRounds.run(code);
 }
 
 export function declareWinner(code, playerId) {
